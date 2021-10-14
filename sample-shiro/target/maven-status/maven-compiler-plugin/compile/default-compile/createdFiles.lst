@@ -1,0 +1,9 @@
+com\fjh\shiro\controller\RestrictedErrorController.class
+com\fjh\shiro\controller\LoginControllers.class
+com\fjh\shiro\WebApp.class
+com\fjh\shiro\controller\AccountInfoController.class
+com\fjh\shiro\config\SwaggerConfig.class
+com\fjh\shiro\UserServiceImpl.class
+com\fjh\shiro\controller\TestController.class
+com\fjh\shiro\controller\TestBean.class
+com\fjh\shiro\controller\HelloController.class
