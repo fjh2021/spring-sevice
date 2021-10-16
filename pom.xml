@@ -12,12 +12,13 @@
         <module>customize-shiro-starter</module>
         <module>spring-security</module>
         <module>sample-shiro</module>
-        <module>swagger</module>
         <module>sharding-jdbc</module>
+        <module>pf4j</module>
     </modules>
     <properties>
         <spring.boot.dependencies.version>2.2.7.RELEASE</spring.boot.dependencies.version>
         <knife4j.version>2.0.7</knife4j.version>
+        <pf4j-spring.version>0.7.0</pf4j-spring.version>
     </properties>
 
     <dependencyManagement>
@@ -66,6 +67,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.22</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.pf4j</groupId>
+                <artifactId>pf4j-spring</artifactId>
+                <version>${pf4j-spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

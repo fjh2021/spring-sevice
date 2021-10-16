@@ -3,7 +3,7 @@ package com.fjh.shiro.starter;
 import java.io.Serializable;
 
 /**
- * @Author 范建豪
+ * @Author fjh
  * @Email
  * @Date 2021/7/13 17:28
  * @Description

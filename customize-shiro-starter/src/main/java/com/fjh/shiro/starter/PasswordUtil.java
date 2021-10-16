@@ -4,7 +4,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
 /**
- * @Author 范建豪
+ * @Author fjh
  * @Email
  * @Date 2021/7/14 11:09
  * @Description

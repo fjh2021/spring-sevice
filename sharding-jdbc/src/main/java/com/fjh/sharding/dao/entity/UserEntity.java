@@ -3,7 +3,7 @@ package com.fjh.sharding.dao.entity;
 import java.io.Serializable;
 
 /**
- * @Author 范建豪
+ * @Author fjh
  * @Email
  * @Date 2021/8/24 22:30
  * @Description
