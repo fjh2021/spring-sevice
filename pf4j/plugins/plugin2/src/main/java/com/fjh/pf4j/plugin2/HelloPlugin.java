@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fjh.pf4j.plugin;
+package com.fjh.pf4j.plugin2;
 
 import com.fjh.pf4j.api.Greeting;
 import com.fjh.pf4j.api.MessageProvider;
@@ -21,6 +21,7 @@ import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * A very simple plugin.
@@ -33,6 +34,7 @@ public class HelloPlugin extends Plugin {
         super(wrapper);
     }
 
+
     @Override
     public void start() {
         System.out.println("HelloPlugin.start()");
@@ -44,20 +46,13 @@ public class HelloPlugin extends Plugin {
         super.stop(); // to close applicationContext
     }
 
-//    @Override
-//    protected ApplicationContext createApplicationContext() {
-//        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-//        applicationContext.setClassLoader(getWrapper().getPluginClassLoader());
-//        applicationContext.register(SpringConfiguration.class);
-//        applicationContext.refresh();
-//
-//        return applicationContext;
-//    }
-
     @Extension(ordinal = 1)
     public static class HelloGreeting implements Greeting {
 
         private final MessageProvider messageProvider;
+
+        @Autowired
+        private StringRedisTemplate stringRedisTemplate;
 
         @Autowired
         public HelloGreeting(final MessageProvider messageProvider) {
@@ -66,9 +61,10 @@ public class HelloPlugin extends Plugin {
 
         @Override
         public String getGreeting() {
-//            return "Hello";
-            // complicate a little bit the code
-            return messageProvider.getMessage();
+            System.out.printf(" hello plugin's redis :" + stringRedisTemplate.opsForValue().get("key_123"));
+//            return messageProvider.getMessage();
+            return " hello plugin's redis :" + stringRedisTemplate.opsForValue().get("key_123");
+
         }
 
     }

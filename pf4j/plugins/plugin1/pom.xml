@@ -19,7 +19,6 @@
         <plugin.provider>Decebal Suiu</plugin.provider>
         <plugin.dependencies />
     </properties>
-
     <build>
         <plugins>
             <!-- DOESN'T WORK WITH MAVEN 3 (I defined the plugin metadata in properties section)
@@ -132,6 +131,7 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 
 
 </project>

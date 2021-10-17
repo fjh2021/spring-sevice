@@ -17,6 +17,8 @@ package com.fjh.pf4j.demo;
 
 
 import com.fjh.pf4j.api.MessageProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * @author Decebal Suiu
@@ -24,9 +26,12 @@ import com.fjh.pf4j.api.MessageProvider;
 //@Component
 public class HelloMessageProvider implements MessageProvider {
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     @Override
     public String getMessage() {
-        return "Hello 12345";
+        stringRedisTemplate.opsForValue().set("key_123","Hello 12345");
+        return "redis key_123 print:"+stringRedisTemplate.opsForValue().get("key_123");
     }
 
 }

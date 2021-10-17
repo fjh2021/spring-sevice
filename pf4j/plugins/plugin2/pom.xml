@@ -14,8 +14,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <plugin.id>welcome-plugin</plugin.id>
-        <plugin.class>org.fjh.pf4j.plugin.WelcomePlugin</plugin.class>
+        <plugin.id>hello-plugin</plugin.id>
+        <plugin.class>com.fjh.pf4j.plugin2.HelloPlugin</plugin.class>
         <plugin.version>0.0.1</plugin.version>
         <plugin.provider>Decebal Suiu</plugin.provider>
         <plugin.dependencies />
@@ -132,6 +132,11 @@
             <groupId>com.fjh</groupId>
             <artifactId>pf4j-api</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
