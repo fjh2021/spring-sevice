@@ -18,6 +18,7 @@
     </properties>
     <modules>
         <module>plugin1</module>
+        <module>plugin2</module>
     </modules>
 
 </project>
