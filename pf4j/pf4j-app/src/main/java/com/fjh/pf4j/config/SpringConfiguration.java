@@ -15,9 +15,8 @@
  */
 package com.fjh.pf4j.config;
 
-import com.fjh.pf4j.api.MessageProvider;
 import com.fjh.pf4j.demo.Greetings;
-import com.fjh.pf4j.demo.HelloMessageProvider;
+import com.fjh.pf4j.demo.MyExtensionsInjector;
 import org.pf4j.spring.SpringPluginManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,21 +26,24 @@ import org.springframework.context.annotation.DependsOn;
  * @author Decebal Suiu
  */
 @Configuration
-public class SpringConfiguration {
+public class SpringConfiguration  {
 
     @Bean
     public SpringPluginManager pluginManager() {
         return new SpringPluginManager();
     }
+//
+//    @Bean
+//    @DependsOn("pluginManager")
+//    public Greetings greetings() {
+//        return new Greetings();
+//    }
 
     @Bean
-    @DependsOn("pluginManager")
-    public Greetings greetings() {
-        return new Greetings();
+    public MyExtensionsInjector myExtensionsInjector() {
+        MyExtensionsInjector extensionsInjector = new MyExtensionsInjector(pluginManager());
+        return extensionsInjector;
     }
 
-    @Bean
-    public MessageProvider messageProvider() {
-        return new HelloMessageProvider();
-    }
+
 }

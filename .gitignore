@@ -21,3 +21,8 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/pf4j/pf4j-app/target/
+/pf4j/pf4j-api/target/
+/pf4j/plugins/plugin1/target/
+/pf4j/plugins/plugin2/target/
+/.idea/

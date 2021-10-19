@@ -19,11 +19,12 @@ package com.fjh.pf4j.demo;
 import com.fjh.pf4j.api.MessageProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Decebal Suiu
  */
-//@Component
+@Component
 public class HelloMessageProvider implements MessageProvider {
 
     @Autowired

@@ -63,7 +63,7 @@ public class HelloPlugin extends Plugin {
         public String getGreeting() {
             System.out.printf(" hello plugin's redis :" + stringRedisTemplate.opsForValue().get("key_123"));
 //            return messageProvider.getMessage();
-            return " hello plugin's redis :" + stringRedisTemplate.opsForValue().get("key_123");
+            return ">>>  new  hello redis :" + stringRedisTemplate.opsForValue().get("key_123");
 
         }
 
