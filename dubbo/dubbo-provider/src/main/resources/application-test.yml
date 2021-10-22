@@ -1,0 +1,16 @@
+server:
+  port: 8085
+dubbo:
+  application:
+    name: providerApplication
+  provider:
+    group: test
+    port: 20880
+  consumer:
+    group: test
+    retries: 0
+    timeout: 5000
+  scan:
+    base-packages: com.fjh.dubbo
+  registry:
+    address: nacos://localhost:8848?namespace=aec23b43-4599-4fdd-b8a2-ec28d937769f

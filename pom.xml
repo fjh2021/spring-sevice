@@ -14,11 +14,16 @@
         <module>sample-shiro</module>
         <module>sharding-jdbc</module>
         <module>pf4j</module>
+        <module>dubbo</module>
+
     </modules>
     <properties>
         <spring.boot.dependencies.version>2.2.7.RELEASE</spring.boot.dependencies.version>
         <knife4j.version>2.0.7</knife4j.version>
         <pf4j-spring.version>0.7.0</pf4j-spring.version>
+        <lombok.version>1.18.18</lombok.version>
+        <dubbo.version>2.7.12</dubbo.version>
+        <nacos-springboot.version>0.2.7</nacos-springboot.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +78,50 @@
                 <groupId>org.pf4j</groupId>
                 <artifactId>pf4j-spring</artifactId>
                 <version>${pf4j-spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+             <!--dubbo -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <!-- nacos -->
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+                <version>${nacos-springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-discovery-spring-boot-actuator</artifactId>
+                <version>${nacos-springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos-springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-actuator</artifactId>
+                <version>${nacos-springboot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
