@@ -1,7 +1,7 @@
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\dao\UserMapper.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\controller\TestController.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\ShardingJdbcApplication.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\dao\entity\UserEntity.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\service\UserService.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\dao\OrderDao.java
-E:\project\authorization\sharding-jdbc\src\main\java\com\fjh\sharding\config\SwaggerConfig.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\service\UserService.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\dao\OrderDao.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\config\SwaggerConfig.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\controller\TestController.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\dao\entity\UserEntity.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\ShardingJdbcApplication.java
+E:\project\spring-sevice\sharding-jdbc\src\main\java\com\fjh\sharding\dao\UserMapper.java

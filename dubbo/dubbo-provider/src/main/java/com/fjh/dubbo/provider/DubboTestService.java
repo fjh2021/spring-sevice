@@ -1,13 +1,16 @@
 package com.fjh.dubbo.provider;
 
-import com.fjh.dubbo.api.DubboTestApi;
+import com.cubigdata.wisdomdata.api.LogoutCallbackApi;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 
 @DubboService
-public class DubboTestService implements DubboTestApi {
+@Slf4j
+public class DubboTestService implements LogoutCallbackApi {
+
     @Override
-    public String getName(String name) {
-        System.out.println("---------------name:"+name);
-        return "name:"+name;
+    public String logoutCallback(String token) {
+        log.info("come in----------------------------------logout callback");
+        return "success------" + System.currentTimeMillis();
     }
 }

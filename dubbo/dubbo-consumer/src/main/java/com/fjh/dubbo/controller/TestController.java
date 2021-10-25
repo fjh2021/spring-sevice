@@ -28,7 +28,7 @@ public class TestController {
        Object o =genericService.$invoke("getName", new String[]{"java.lang.String"}, new Object[]{name});
         Map<String, Object> m = RpcContext.getServerContext().getObjectAttachments();
         System.out.println("-------------callback:"+m.toString());
-        return  o;
+        return  m;
     }
 
 

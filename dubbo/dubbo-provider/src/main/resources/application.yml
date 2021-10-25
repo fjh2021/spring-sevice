@@ -7,10 +7,10 @@ dubbo:
   application:
     name: providerApplication
   provider:
-    group: test
+    group: expos-middle-admin
     port: 20888
   consumer:
-    group: test
+    group: expos-middle-admin
     retries: 0
     timeout: 5000
   scan:

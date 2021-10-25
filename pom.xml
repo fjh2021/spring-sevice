@@ -15,6 +15,7 @@
         <module>sharding-jdbc</module>
         <module>pf4j</module>
         <module>dubbo</module>
+        <module>kafka</module>
 
     </modules>
     <properties>
