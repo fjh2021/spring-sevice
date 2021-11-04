@@ -16,6 +16,7 @@
         <module>pf4j</module>
         <module>dubbo</module>
         <module>kafka</module>
+        <module>flink</module>
 
     </modules>
     <properties>

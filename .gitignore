@@ -26,3 +26,9 @@ hs_err_pid*
 /pf4j/plugins/plugin1/target/
 /pf4j/plugins/plugin2/target/
 /.idea/
+/kafka/kafka-consumer/target/
+/kafka/kafka-provider/target/
+/flink/target/
+/dubbo/dubbo-api/target/
+/dubbo/dubbo-consumer/target/
+/dubbo/dubbo-provider/target/
