@@ -17,6 +17,7 @@
         <module>dubbo</module>
         <module>kafka</module>
         <module>flink</module>
+        <module>mp</module>
 
     </modules>
     <properties>
