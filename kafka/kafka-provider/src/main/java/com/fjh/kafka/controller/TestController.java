@@ -19,4 +19,6 @@ public class TestController {
     public void setMessage(String topic,String message) {
         indicatorService.sendMessage(topic,message);
     }
+
+
 }
