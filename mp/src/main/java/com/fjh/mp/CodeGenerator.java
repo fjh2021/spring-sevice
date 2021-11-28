@@ -33,12 +33,13 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://")); // 设置mapperXml生成路径
                 })
                 // 策略配置
-                .strategyConfig(builder -> builder.addInclude("plug_info"))
-//                .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply("请输入表名，多个英文逗号分隔？所有输入 all")))
-//                        .controllerBuilder().enableRestStyle().enableHyphenStyle()
-//                        .entityBuilder().enableLombok().addTableFills(
+//                .strategyConfig(builder -> builder.addInclude("plug_info"))
+                .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply("请输入表名，多个英文逗号分隔？所有输入 all")))
+                        .controllerBuilder().enableRestStyle().enableHyphenStyle()
+                        .entityBuilder().enableLombok()//.addTableFills(
 //                                new Column("create_time", FieldFill.INSERT)
-//                        ).build())
+                       // )
+                .build())
 //                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }

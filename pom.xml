@@ -16,9 +16,9 @@
         <module>pf4j</module>
         <module>dubbo</module>
         <module>kafka</module>
-        <module>flink</module>
         <module>mp</module>
         <module>file-manage</module>
+        <module>flink</module>
 
     </modules>
     <properties>
