@@ -3,17 +3,14 @@ package com.fjh.flink.olap;
 import com.fjh.flink.olap.bean.ItemViewCount;
 import com.fjh.flink.olap.bean.UserBehavior;
 import org.apache.commons.compress.utils.Lists;
-import org.apache.commons.math3.analysis.function.Minus;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.state.ListState;
 import org.apache.flink.api.common.state.ListStateDescriptor;
-import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.AscendingTimestampExtractor;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
@@ -21,11 +18,9 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.flink.util.Collector;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import javax.xml.crypto.Data;
+import java.time.Duration;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -43,8 +38,6 @@ public class HotItems {
         //创建环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-
         //读取数据
 //        DataStream<String> inputSteam = env.readTextFile("D:\\");
         // kafka 数据读取
@@ -58,19 +51,15 @@ public class HotItems {
         //转换成pojo 和 设置watermark
         DataStream<UserBehavior> dataStream = inputSteam.map(line -> {
             String[] fields = line.split(",");
-            return new UserBehavior(new Long(fields[0]), new Long(fields[1]), new Integer(fields[2]), new String(fields[3]), new Long(fields[4]));
-        }).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<UserBehavior>() {
-            @Override
-            public long extractAscendingTimestamp(UserBehavior element) {
-                return element.getTimestamp() * 1000;
-            }
-        });
+            return new UserBehavior(new Long(fields[0]), new Long(fields[1]), new Integer(fields[2]), fields[3], new Long(fields[4]));
+        }).assignTimestampsAndWatermarks(WatermarkStrategy.<UserBehavior>forBoundedOutOfOrderness(Duration.ofSeconds(3))
+                .withTimestampAssigner((event, timestamp) -> event.getTimestamp()*1000));
 
         //过滤，分组开窗聚合
         DataStream<ItemViewCount> itemViewCountDataStream = dataStream.filter(data ->
                         "pv".equals(data.getBehavior()))  //过滤pv
-                .keyBy(UserBehavior::getItemId)   //分组
-                .window(SlidingEventTimeWindows.of(Time.hours(1L), Time.minutes(2))) //滑动窗口
+                .keyBy(x -> x.getItemId())   //分组
+                .window(SlidingEventTimeWindows.of(Time.hours(1L), Time.minutes(4))) //滑动窗口
                 .aggregate(new ItemCountAgg(), new WindowItemCountResult());
 
         //同一窗口的商品排序，top5
@@ -82,31 +71,29 @@ public class HotItems {
     }
 
     //实现自定义增量聚合函数(预聚合）
-    public static class ItemCountAgg implements AggregateFunction<UserBehavior, Object, Long> {
+    public static class ItemCountAgg implements AggregateFunction<UserBehavior, Long, Long> {
 
 
         @Override
-        public Object createAccumulator() {
+        public Long createAccumulator() {
             return 0L;
         }
 
         @Override
-        public Object add(UserBehavior userBehavior, Object o) {
-            Long a = (Long) o;
-            return a+1;
+        public Long add(UserBehavior userBehavior, Long o) {
+
+            return o + 1;
         }
 
         @Override
-        public Long getResult(Object o) {
-            return (Long) o;
+        public Long getResult(Long o) {
+            return o;
         }
 
         @Override
-        public Object merge(Object o, Object acc1) {
-            Long a = (Long) o;
-            Long b = (Long) acc1;
+        public Long merge(Long a, Long b) {
 
-            return a+b;
+            return a + b;
         }
     }
 
