@@ -13,6 +13,7 @@
     <modules>
         <module>flink-cdc</module>
         <module>flink-olap</module>
+        <module>flink-networkflow-olap</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -127,6 +128,11 @@
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
                 <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-jdbc_${scala.binary.version}</artifactId>
+                <version>1.13.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -32,3 +32,8 @@ hs_err_pid*
 /dubbo/dubbo-api/target/
 /dubbo/dubbo-consumer/target/
 /dubbo/dubbo-provider/target/
+/flink/flink-networkflow-olap/
+/flink/flink-olap/
+/sharding-jdbc/target/
+/spring-security/target/
+/sample-shiro/target/

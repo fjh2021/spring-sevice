@@ -9,6 +9,9 @@ import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.state.ListState;
 import org.apache.flink.api.common.state.ListStateDescriptor;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
+import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
+import org.apache.flink.connector.jdbc.JdbcSink;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
@@ -42,7 +45,7 @@ public class HotItems {
 //        DataStream<String> inputSteam = env.readTextFile("D:\\");
         // kafka 数据读取
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "localhost:9092");
+        properties.setProperty("bootstrap.servers", "hg-dev:9092");
         properties.setProperty("group.id", "consumer");
         properties.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
@@ -67,6 +70,22 @@ public class HotItems {
                 .keyBy(ItemViewCount::getWindowEnd)
                 .process(new TopHotItem(5));
         resultSteam.print();
+
+        itemViewCountDataStream
+                .addSink(JdbcSink.sink(
+                        "insert into flink_hot_item(item_id,item_count,window_end) values (?,?,?)",
+                        (ps, t) -> {
+                            ps.setLong(1, t.getItemId());
+                            ps.setLong(2, t.getCount());
+                            ps.setLong(3, t.getWindowEnd());
+                        },
+                        new JdbcExecutionOptions.Builder().withBatchSize(1).build(),
+                        new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
+                                .withUrl("jdbc:mysql://119.91.201.111:3306/flinkdb?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai")
+                                .withDriverName("com.mysql.cj.jdbc.Driver")
+                                .withUsername("dev")
+                                .withPassword("dev123456.")
+                                .build()));
         env.execute();
     }
 
