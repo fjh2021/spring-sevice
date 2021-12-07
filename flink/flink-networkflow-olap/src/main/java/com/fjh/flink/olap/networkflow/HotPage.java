@@ -81,8 +81,8 @@ public class HotPage {
                 })
                 .keyBy(ApacheLogEvent::getUrl)    // 按照url分组
                 .window(SlidingEventTimeWindows.of(Time.minutes(10), Time.seconds(5)))
-                .allowedLateness(Time.minutes(1))
-                .sideOutputLateData(lateTag)
+                .allowedLateness(Time.minutes(1)) //  更新之前输出的结果
+                .sideOutputLateData(lateTag)     // 侧输出流标签
                 .aggregate(new PageCountAgg(), new PageCountResult());
 
         windowAggStream.print("agg");
@@ -98,7 +98,7 @@ public class HotPage {
         env.execute();
     }
 
-    // 自定义预聚合函数
+    // 自定义预聚合函数 （每一个窗口的增量）
     public static class PageCountAgg implements AggregateFunction<ApacheLogEvent, Long, Long> {
         @Override
         public Long createAccumulator() {
@@ -121,7 +121,7 @@ public class HotPage {
         }
     }
 
-    // 实现自定义的窗口函数
+    // 实现自定义的窗口函数，（搜集每一个窗口的结果）
     public static class PageCountResult implements WindowFunction<Long, PageViewCount, String, TimeWindow> {
         @Override
         public void apply(String url, TimeWindow window, Iterable<Long> input, Collector<PageViewCount> out) throws Exception {

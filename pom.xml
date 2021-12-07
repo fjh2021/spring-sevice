@@ -19,6 +19,7 @@
         <module>mp</module>
         <module>file-manage</module>
         <module>flink</module>
+        <module>rocketapi</module>
 
     </modules>
     <properties>
