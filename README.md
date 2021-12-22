@@ -9,3 +9,16 @@ Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授
 
 ##  pf4j 
 动态加载 jar 框架
+
+## flink 
+flink cdc 同步mysql
+flink olap 统计分析
+
+## kafka 
+消息中间件
+
+## rocketApi
+表转接口api
+
+## file-manager
+文件上传
