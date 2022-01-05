@@ -16,4 +16,5 @@ swagger:
   title: 邮件api
   desc: 邮件api文档
   version: 1.0.0
+  group: 邮件组
   enable: true
