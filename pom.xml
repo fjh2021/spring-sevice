@@ -20,6 +20,8 @@
         <module>file-manage</module>
         <module>flink</module>
         <module>rocketapi</module>
+        <module>email</module>
+        <module>swaggger</module>
 
     </modules>
     <properties>

@@ -2,9 +2,9 @@ spring:
   application:
     name: dataway-api
   datasource:
-    url: jdbc:mysql://119.91.201.111:3306/dataway?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/dataway?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: dev
-    password: dev123456.
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   rocket-api:
     config-enabled: true
