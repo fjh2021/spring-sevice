@@ -25,10 +25,10 @@ import javax.mail.internet.*;
 import com.fjh.email.config.MailConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
-@SuppressWarnings("unused")
+@Service
 public class MailService {
 
     @Autowired
@@ -66,7 +66,7 @@ public class MailService {
             //发送时间
             mMessage.setSentDate(new Date());
             //收件人
-            InternetAddress[] toAddress = {new InternetAddress("sunw@hrocloud.com"), new InternetAddress("sunwei1995sh@126.com")};
+            InternetAddress[] toAddress = {new InternetAddress("846830737@qq.com")};
             mMessage.setRecipients(Message.RecipientType.TO, toAddress);
             //主题
             mMessage.setSubject("孙维主题");

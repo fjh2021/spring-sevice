@@ -8,10 +8,11 @@ mail:
     smtp_host: smtp.qq.com
     smtp_port: 25   #端口号，一般有ssl的时候端口号是其他的
     smtp_auth: true  #连接校验
-    STMP_user: xxxx@qq.com  #发件人用户
-    STMP_pass: xxxxx #授权码
-    smtp_from: 2428202862@qq.com  #发件人
-    smtp_fromnick: xxx对方邮箱显示的不是qq号而是nickname
+    smtp_user: 1731970489@qq.com  #发件人用户
+    smtp_pass: xxxxx #授权码
+    smtp_from: 1731970489@qq.com  #发件人
+    smtp_fromnick: 范建豪 #对方邮箱显示的不是qq号而是nickname
+
 swagger:
   title: 邮件api
   desc: 邮件api文档
