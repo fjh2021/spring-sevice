@@ -3,15 +3,12 @@ spring:
     name: email-app
   profiles:
     active: dev
-mail:
-  config:
-    smtp_host: smtp.qq.com
-    smtp_port: 25   #端口号，一般有ssl的时候端口号是其他的
-    smtp_auth: true  #连接校验
-    smtp_user: 1731970489@qq.com  #发件人用户
-    smtp_pass: xxxxx #授权码
-    smtp_from: 1731970489@qq.com  #发件人
-    smtp_fromnick: 范建豪 #对方邮箱显示的不是qq号而是nickname
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: 8
+    password: s
+
 
 swagger:
   title: 邮件api
