@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,10 @@ import java.io.UnsupportedEncodingException;
 public class MailSendService {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSenderImpl mailSender;
 
-   @Autowired
-   private MailProperties mailProperties;
+//   @Autowired
+//   private MailProperties mailProperties;
     /**
      * 无附件 简单文本内容发送
      * @param email 接收方email
@@ -38,7 +39,7 @@ public class MailSendService {
     public  void simpleMailSend(String email,String subject,String text) {
         //创建邮件内容
         SimpleMailMessage message=new SimpleMailMessage();
-        message.setFrom(mailProperties.getUsername());//这里指的是发送者的账号
+        message.setFrom(mailSender.getUsername());//这里指的是发送者的账号
         message.setTo(email);
         message.setSubject(subject);
         message.setText(text);
@@ -61,7 +62,7 @@ public class MailSendService {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         // 设置utf-8或GBK编码，否则邮件会有乱码
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-        messageHelper.setFrom(mailProperties.getUsername(),"范先生");
+        messageHelper.setFrom(mailSender.getUsername(),"范先生");
         messageHelper.setTo(to);
         messageHelper.setSubject(subject);
         messageHelper.setText(html, true);
@@ -71,27 +72,5 @@ public class MailSendService {
         mailSender.send(mimeMessage);
     }
 
-    /**
-     * 发送html内容的 邮件
-     * @param email
-     * @param subject
-     * @param text
-     */
-    public void sendSimpleMailHtml(String email,String subject,String text) throws MessagingException, UnsupportedEncodingException {
 
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-        helper.setFrom(mailProperties.getUsername(),"范先生");
-        helper.setTo(email);
-        helper.setSubject(subject);
-        // 注意<img/>标签，src='cid:jpg'，'cid'是contentId的缩写，'jpg'是一个标记
-        helper.setText("<html><body><img src=\"cid:jpg\"></body></html>", true);
-        // 加载文件资源，作为附件
-        FileSystemResource file = new FileSystemResource(new File("d:\\1.png"));
-        // 调用MimeMessageHelper的addInline方法替代成文件('jpg[标记]', file[文件])
-        helper.addInline("jpg", file);
-        // 发送邮件
-        mailSender.send(mimeMessage);
-    }
 }

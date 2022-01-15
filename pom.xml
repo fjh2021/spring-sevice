@@ -22,6 +22,7 @@
         <module>rocketapi</module>
         <module>email</module>
         <module>swagger-starter</module>
+        <module>spring-actuator</module>
 
     </modules>
     <properties>
@@ -31,6 +32,7 @@
         <lombok.version>1.18.18</lombok.version>
         <dubbo.version>2.7.12</dubbo.version>
         <nacos-springboot.version>0.2.7</nacos-springboot.version>
+        <log4j.version>2.12.1</log4j.version>
     </properties>
 
     <dependencyManagement>
@@ -130,8 +132,34 @@
                 <artifactId>nacos-config-spring-boot-actuator</artifactId>
                 <version>${nacos-springboot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>2.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.71</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.6.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 
 </project>

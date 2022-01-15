@@ -1,0 +1,44 @@
+{
+  "receiver":"web\\.hook",
+  "status":"firing",
+  "alerts":[
+    {
+      "status":"firing",
+      "labels":{
+        "alertname":"node-up",
+        "instance":"vm-182.61.149.225",
+        "job":"node-exporter",
+        "monitor":"codelab-monitor",
+        "service":"node-service",
+        "severity":"1",
+        "team":"node"
+      },
+      "annotations":{
+        "summary":"vm-182.61.149.225 已停止运行超过 15s！"
+      },
+      "startsAt":"2022-01-15T11:27:09.003Z",
+      "endsAt":"0001-01-01T00:00:00Z",
+      "generatorURL":"http://29ed9836b1b9:9090/graph?g0.expr=up%7Bjob%3D%22node-exporter%22%7D+%3D%3D+0\u0026g0.tab=1",
+      "fingerprint":"64e4331bade65eb6"
+    }
+  ],
+  "groupLabels":{
+    "alertname":"node-up"
+  },
+  "commonLabels":{
+    "alertname":"node-up",
+    "instance":"vm-182.61.149.225",
+    "job":"node-exporter",
+    "monitor":"codelab-monitor",
+    "service":"node-service",
+    "severity":"1",
+    "team":"node"
+  },
+  "commonAnnotations":{
+    "summary":"vm-182.61.149.225 已停止运行超过 15s！"
+  },
+  "externalURL":"http://d4888d37d63e:9093",
+  "version":"4",
+  "groupKey":"{}:{alertname=\"node-up\"}",
+  "truncatedAlerts":0
+}

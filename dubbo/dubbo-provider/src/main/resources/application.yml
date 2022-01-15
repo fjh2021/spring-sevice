@@ -16,4 +16,5 @@ dubbo:
   scan:
     base-packages: com.fjh.dubbo
   registry:
-    address: nacos://localhost:8848?namespace=aec23b43-4599-4fdd-b8a2-ec28d937769f
+#    address: nacos://localhost:8848?namespace=aec23b43-4599-4fdd-b8a2-ec28d937769f
+    address: N/A

@@ -1,7 +1,0 @@
-com\fjh\sharding\config\SwaggerConfig.class
-com\fjh\sharding\service\UserService.class
-com\fjh\sharding\dao\entity\UserEntity.class
-com\fjh\sharding\dao\UserMapper.class
-com\fjh\sharding\controller\TestController.class
-com\fjh\sharding\dao\OrderDao.class
-com\fjh\sharding\ShardingJdbcApplication.class
