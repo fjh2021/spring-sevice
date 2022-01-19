@@ -23,6 +23,7 @@
         <module>email</module>
         <module>swagger-starter</module>
         <module>spring-actuator</module>
+        <module>mq</module>
 
     </modules>
     <properties>

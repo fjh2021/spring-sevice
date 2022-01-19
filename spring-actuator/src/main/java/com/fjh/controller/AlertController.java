@@ -23,7 +23,7 @@ public class AlertController {
 
     @RequestMapping(value = "/send", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String pstn(@RequestBody String json) {
+    public String alterMessage(@RequestBody String json) {
         log.info("------------\n alert notify  params: {}", json);
         Map<String, Object> result = new HashMap<>();
         result.put("msg", "报警失败");

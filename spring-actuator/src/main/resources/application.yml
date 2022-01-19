@@ -1,10 +1,12 @@
 spring:
   application:
-    name: email-app
+    name: actuator-app
   profiles:
     active: dev
 
-
+logging:
+  file:
+    name: /root/app/logs/${spring.application.name}.log
 
 swagger:
   title: 监控告警
