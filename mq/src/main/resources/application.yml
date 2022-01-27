@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: pulsar-app
+  profiles:
+    active: dev
+
+pulsar:
+  service-url: pulsar://182.61.149.225:6650
+
+swagger:
+  title: pulsar api
+  desc:  pulsar api文档
+  version: 1.0.0
+  group: mq 消息中间件组
+  enable: true

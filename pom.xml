@@ -31,9 +31,11 @@
         <knife4j.version>2.0.7</knife4j.version>
         <pf4j-spring.version>0.7.0</pf4j-spring.version>
         <lombok.version>1.18.18</lombok.version>
-        <dubbo.version>2.7.12</dubbo.version>
+        <dubbo.version>2.7.15</dubbo.version>
         <nacos-springboot.version>0.2.7</nacos-springboot.version>
         <log4j.version>2.12.1</log4j.version>
+        <nacos-client.version>1.2.1</nacos-client.version>
+        <fastjson.version>1.2.71</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -136,12 +138,12 @@
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
-                <version>2.0.3</version>
+                <version>${nacos-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.71</version>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

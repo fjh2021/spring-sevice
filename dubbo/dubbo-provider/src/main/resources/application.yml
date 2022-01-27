@@ -6,15 +6,7 @@ spring:
 dubbo:
   application:
     name: providerApplication
-  provider:
-    group: expos-middle-admin
-    port: 20888
-  consumer:
-    group: expos-middle-admin
-    retries: 0
-    timeout: 5000
   scan:
     base-packages: com.fjh.dubbo
   registry:
-#    address: nacos://localhost:8848?namespace=aec23b43-4599-4fdd-b8a2-ec28d937769f
-    address: N/A
+    address: nacos://182.61.149.225:8848?namespace=
