@@ -37,3 +37,4 @@ hs_err_pid*
 /sharding-jdbc/target/
 /spring-security/target/
 /sample-shiro/target/
+/customize-shiro-starter/target/

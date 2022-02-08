@@ -9,4 +9,4 @@ dubbo:
   scan:
     base-packages: com.fjh.dubbo
   registry:
-    address: nacos://182.61.149.225:8848?namespace=
+    address: nacos://localhost:8848?namespace=
