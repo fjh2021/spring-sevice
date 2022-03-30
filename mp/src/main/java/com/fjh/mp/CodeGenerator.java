@@ -20,26 +20,28 @@ public class CodeGenerator {
             "root", "123456");
 
     public static void main(String[] args) {
+        String basePath = "E:projectName/src/main/";
+        String basePackage = "com.fjh";
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
-                .globalConfig(builder -> {
-                    builder.author("fjh") // 设置作者
-                            .enableSwagger() // 开启 swagger 模式
-                            .fileOverride() // 覆盖已生成文件
-                            .outputDir("D://code-generator//"); // 指定输出目录
-                })
-                .packageConfig(builder -> {
-                    builder.parent("com.fjh") // 设置父包名
-                            .moduleName("plug") // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://")); // 设置mapperXml生成路径
+                .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称")) // 设置作者
+                        .fileOverride() // 覆盖已生成文件
+                        .enableSwagger() // 开启 swagger 模式
+                        .outputDir(basePath + "java/")  // 指定输出目录
+                )
+                .packageConfig((scanner, builder) -> {
+                    builder.parent(basePackage) // 设置父包名
+                            .moduleName(scanner.apply("请输入模块名")) //设置模块名
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, basePath + "resources/mapper/")); // 设置mapperXml生成路径
                 })
                 // 策略配置
-//                .strategyConfig(builder -> builder.addInclude("plug_info"))
+
                 .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply("请输入表名，多个英文逗号分隔？所有输入 all")))
                         .controllerBuilder().enableRestStyle().enableHyphenStyle()
-                        .entityBuilder().enableLombok()//.addTableFills(
-//                                new Column("create_time", FieldFill.INSERT)
-                       // )
-                .build())
+                        .entityBuilder().enableLombok().addTableFills(
+                                new Column("create_time", FieldFill.INSERT),
+                                new Column("update_time", FieldFill.INSERT_UPDATE)
+                        )
+                        .build())
 //                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
