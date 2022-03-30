@@ -1,4 +1,4 @@
-package com.fjh.pojo.entity;
+package com.fjh.entity;
 
 /**
  * <p>
