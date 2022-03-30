@@ -1,7 +1,0 @@
-com\fjh\shiro\starter\UserService.class
-com\fjh\shiro\starter\ShiroDbRealm.class
-com\fjh\shiro\starter\CorsAuthenticationFilter.class
-com\fjh\shiro\starter\User.class
-com\fjh\shiro\starter\LoginController.class
-com\fjh\shiro\starter\config\ShiroAutoConfigure.class
-com\fjh\shiro\starter\PasswordUtil.class
