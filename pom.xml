@@ -24,11 +24,13 @@
         <module>swagger-starter</module>
         <module>spring-actuator</module>
         <module>mq</module>
+        <module>h2</module>
+        <module>fast-spring-boot-service</module>
 
     </modules>
     <properties>
-        <spring.boot.dependencies.version>2.2.7.RELEASE</spring.boot.dependencies.version>
-        <knife4j.version>2.0.7</knife4j.version>
+        <spring.boot.dependencies.version>2.5.4</spring.boot.dependencies.version>
+        <knife4j.version>2.0.8</knife4j.version>
         <pf4j-spring.version>0.7.0</pf4j-spring.version>
         <lombok.version>1.18.18</lombok.version>
         <dubbo.version>2.7.15</dubbo.version>
@@ -36,6 +38,7 @@
         <log4j.version>2.12.1</log4j.version>
         <nacos-client.version>1.4.1</nacos-client.version>
         <fastjson.version>1.2.71</fastjson.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
     </properties>
 
     <dependencyManagement>
@@ -47,26 +50,10 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- swagger -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>2.9.2</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.9.2</version>
-            </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.18</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
@@ -145,8 +132,19 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

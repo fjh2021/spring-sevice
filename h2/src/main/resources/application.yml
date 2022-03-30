@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: h2-app
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:../config/db/mc;MODE=MSSQLServer #h2:~/mc 或者 h2:mem:mc 或者 file:../config/db/mc
+    username: sa
+    password: 123456
+    h2:
+      console:
+        path: /h2-console
+        enabled: true
+  #  sql:
+  #    init:
+  #      schema-locations: classpath:db/schema-h2.sql  #h2:mem:mc
+  #      data-locations: classpath:db/data-h2.sql      #h2:mem:mc
+
+
+logging:
+  file:
+    name: logs/${spring.application.name}.log
+
+swagger:
+  title: h2本地数据库
+  desc: 本地数据库
+  version: 1.0.0
+  group: h2本地数据库
+  enable: true
+
+
+
+
+

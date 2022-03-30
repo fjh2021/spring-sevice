@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: expos-federation
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+  profiles:
+    active: local

@@ -1,10 +1,7 @@
-package com.fjh.pf4j.config;
+package com.fjh.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,23 +11,22 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
- * @Author fjh
- * @Email
- * @Date 2021/7/23 15:00
- * @Description
- **/
-
+ * <p>
+ *
+ * </p>
+ *
+ * @author fjh
+ * @since 2022/3/30 10:44
+ */
 @Configuration
 @EnableSwagger2WebMvc
-@EnableKnife4j
 public class SwaggerConfig {
+    @Bean("api")
+    public Docket createRestApi() {
 
-    @Bean
-    public Docket createRestApi(Environment environment) {
-        Profiles profiles = Profiles.of("dev", "test");
-        boolean flag = environment.acceptsProfiles(profiles);
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-                .enable(flag)
+                //分组名称
+                .groupName("project api")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any()).build();
@@ -38,10 +34,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("shiro API Doc")
-                .description("This is a restful api document of shiro.")
+                .title("project-name API Doc")
+                .description("This is a restful api document of project  service ")
                 .version("1.0")
                 .build();
     }
-
 }
