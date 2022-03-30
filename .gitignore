@@ -43,3 +43,13 @@ hs_err_pid*
 /spring-security/target/
 /sample-shiro/target/
 /customize-shiro-starter/target/
+email/target/
+file-manage/target/
+flink/flink-cdc/target/
+h2/target/
+logs/
+mp/target/
+mq/target/
+rocketapi/target/
+spring-actuator/target/
+swagger-starter/target/
