@@ -81,7 +81,7 @@ public class HotItems {
                         },
                         new JdbcExecutionOptions.Builder().withBatchSize(1).build(),
                         new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
-                                .withUrl("jdbc:mysql://119.91.201.111:3306/flinkdb?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai")
+                                .withUrl("jdbc:mysql://localhost:3306/flinkdb?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai")
                                 .withDriverName("com.mysql.cj.jdbc.Driver")
                                 .withUsername("dev")
                                 .withPassword("dev123456.")
