@@ -1,5 +1,7 @@
 package com.fjh.config;
 
+import com.fjh.common.MyException;
+import com.fjh.common.ResponseResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,12 +20,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity handleArgumentNotValid(MethodArgumentNotValidException e) {
+    public ResponseResult handleArgumentNotValid(MethodArgumentNotValidException e) {
         ObjectError error = e.getBindingResult().getAllErrors().get(0);
         String msg = "";
         if (error != null) {
             msg = error.getDefaultMessage();
         }
-        return ResponseEntity.ok(msg);
+        return ResponseResult.success(msg);
+    }
+
+    @ExceptionHandler(MyException.class)
+    public ResponseResult handleMyException(MyException e) {
+        return new ResponseResult(e.getCode(), e.getMsg());
     }
 }
