@@ -2,7 +2,6 @@ package com.fjh.config;
 
 import com.fjh.common.MyException;
 import com.fjh.common.ResponseResult;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
