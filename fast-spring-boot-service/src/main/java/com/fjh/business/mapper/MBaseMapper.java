@@ -1,7 +1,7 @@
-package com.fjh.mapper;
+package com.fjh.business.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.fjh.entity.MBaseEntity;
+import com.fjh.business.entity.MBaseEntity;
 
 /**
  * <p>

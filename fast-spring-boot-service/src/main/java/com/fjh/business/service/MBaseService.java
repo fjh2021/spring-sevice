@@ -1,8 +1,8 @@
-package com.fjh.service;
+package com.fjh.business.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fjh.mapper.MBaseMapper;
-import com.fjh.entity.MBaseEntity;
+import com.fjh.business.mapper.MBaseMapper;
+import com.fjh.business.entity.MBaseEntity;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,4 +1,4 @@
-package com.fjh.config;
+package com.fjh.common.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022/3/17 10:42
  */
 @Configuration
-@MapperScan("com.fjh.mapper")
+@MapperScan("com.fjh.business.mapper")
 public class MybatisPlusConfig {
 
     /**

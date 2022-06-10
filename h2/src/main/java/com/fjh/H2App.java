@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2022/2/11 9:33
  */
 @SpringBootApplication
-@MapperScan("com.fjh.mapper")
+@MapperScan("com.fjh.business.mapper")
 public class H2App {
     public static void main(String[] args) {
         SpringApplication.run(H2App.class, args);

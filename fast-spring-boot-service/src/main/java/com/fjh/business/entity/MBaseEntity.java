@@ -1,4 +1,4 @@
-package com.fjh.entity;
+package com.fjh.business.entity;
 
 /**
  * <p>

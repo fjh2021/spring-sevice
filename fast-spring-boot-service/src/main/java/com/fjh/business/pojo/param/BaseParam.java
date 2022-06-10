@@ -1,4 +1,4 @@
-package com.fjh.pojo.param;
+package com.fjh.business.pojo.param;
 
 /**
  * <p>

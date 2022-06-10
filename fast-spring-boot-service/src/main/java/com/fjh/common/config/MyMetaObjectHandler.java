@@ -1,4 +1,4 @@
-package com.fjh.config;
+package com.fjh.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.fjh.controller;
+package com.fjh.business.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.fjh.config;
+package com.fjh.common.config;
 
 import com.fjh.common.MyException;
 import com.fjh.common.ResponseResult;

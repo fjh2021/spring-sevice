@@ -1,6 +1,6 @@
-package com.fjh.controller;
+package com.fjh.business.controller;
 
-import com.fjh.mapper.UserMapper;
+import com.fjh.business.mapper.UserMapper;
 import com.fjh.model.User;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

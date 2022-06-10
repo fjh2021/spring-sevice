@@ -1,11 +1,11 @@
-package com.fjh.controller;
+package com.fjh.business.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fjh.common.ResponseResult;
 import com.fjh.common.ValidationGroup;
-import com.fjh.entity.MBaseEntity;
-import com.fjh.service.MBaseService;
+import com.fjh.business.entity.MBaseEntity;
+import com.fjh.business.service.MBaseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
