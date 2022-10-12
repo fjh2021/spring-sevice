@@ -26,6 +26,7 @@
         <module>mq</module>
         <module>h2</module>
         <module>fast-spring-boot-service</module>
+        <module>canal-client</module>
 
     </modules>
     <properties>
