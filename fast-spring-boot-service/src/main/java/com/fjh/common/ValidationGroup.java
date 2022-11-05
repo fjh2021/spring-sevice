@@ -1,6 +1,5 @@
 package com.fjh.common;
 
-import javax.validation.GroupSequence;
 
 /**
  * <p>
@@ -18,7 +17,6 @@ public class ValidationGroup {
     public interface Update {
     }
 
-    @GroupSequence({Insert.class, Update.class})
     public interface all {
     }
 
