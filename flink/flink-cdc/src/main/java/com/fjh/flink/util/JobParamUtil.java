@@ -4,6 +4,7 @@ import com.fjh.flink.param.JobParam;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.codehaus.plexus.util.StringUtils;
 
+import java.io.InputStream;
 import java.util.Properties;
 
 public class JobParamUtil {
@@ -20,7 +21,8 @@ public class JobParamUtil {
             throw new Exception("job config file should not null");
         }
         JobParam jobParam = new JobParam();
-        Properties properties = PropertiesUtils.getProperties(configFile);
+        InputStream inputStream = JobParamUtil.class.getResourceAsStream(configFile);
+        Properties properties = PropertiesUtils.getProperties(inputStream);
         String jobName = properties.getProperty("job.name");
         String checkpoint = properties.getProperty("job.checkpoint");
         String sql = properties.getProperty("job.sql");
