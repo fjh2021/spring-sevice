@@ -6,8 +6,12 @@ import com.fjh.common.ResponseResult;
 import com.fjh.common.ValidationGroup;
 import com.fjh.business.entity.MBaseEntity;
 import com.fjh.business.service.MBaseService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.config.CacheManagementConfigUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +23,15 @@ import org.springframework.web.bind.annotation.*;
  * @author fjh
  * @since 2022/3/30 15:39
  */
+@Api(tags = "测试")
+@RestController
 public class BaseController {
 
     @Autowired
     private MBaseService mBaseService;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     @PostMapping("save")
     @ApiOperation("保存")
@@ -50,8 +59,12 @@ public class BaseController {
 
     @GetMapping("getById")
     @ApiOperation("详情")
-    public ResponseResult<MBaseEntity> getById(Long id) {
-        return ResponseResult.success(mBaseService.getById(id));
+    public ResponseResult<String> getById(Long id) {
+        Cache  cache= cacheManager.getCache("test");
+        cache.put("id","123455");
+        String idd= (String) cache.get("id").get();
+//        return ResponseResult.success(mBaseService.getById(id));
+        return ResponseResult.success(idd);
     }
 
 }
