@@ -10,9 +10,6 @@ spring:
     host: localhost
     port: 6379
 
-dubbo:
-  registry:
-    address: N/A #nacos://localhost:8848?namespace=expos-system
 
 knife4j:
   enable: true

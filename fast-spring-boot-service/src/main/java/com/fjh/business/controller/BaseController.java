@@ -59,10 +59,10 @@ public class BaseController {
 
     @GetMapping("getById")
     @ApiOperation("详情")
-    public ResponseResult<String> getById(Long id) {
+    public ResponseResult<Long> getById(Long id) {
         Cache  cache= cacheManager.getCache("test");
-        cache.put("id","123455");
-        String idd= (String) cache.get("id").get();
+        cache.put("id",id);
+        Long idd= (Long) cache.get("id").get();
 //        return ResponseResult.success(mBaseService.getById(id));
         return ResponseResult.success(idd);
     }
