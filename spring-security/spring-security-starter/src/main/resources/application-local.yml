@@ -9,8 +9,8 @@ spring:
   redis:
     host: localhost
     port: 6379
-
-
+  session:
+    store-type: REDIS
 knife4j:
   enable: true
 

@@ -1,5 +1,7 @@
 package com.fjh.security.controller;
 
+import com.fjh.security.entity.User;
+import com.fjh.security.util.HttpSessionUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-
     @GetMapping("getNameById")
     @ApiOperation("测试")
-    public String getNameById(String id) {
-        return id;
+    public User getCurrentUser() {
+        return HttpSessionUtil.getUser();
     }
 }

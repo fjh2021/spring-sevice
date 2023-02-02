@@ -2,26 +2,23 @@ package com.fjh.security.config;
 
 
 import com.fjh.security.service.MyJdbcDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.session.MapSession;
-import org.springframework.session.MapSessionRepository;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
 import javax.sql.DataSource;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author fanjh37
@@ -29,10 +26,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Configuration
 @EnableWebSecurity
-@EnableSpringHttpSession
+@EnableRedisHttpSession
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Value("${spring.session.headerName:X-Auth-Token}")
+    private String tokenHeader;
+
+    @Value("${spring.security.ignore:}")
+    private String[] securityIgnore;
+
+    private String[] defaultIgnore = {"/doc.html", "/v2/**", "/webjars/**", "/swagger-resources/**", "/error", "/captchaImage"};
 
     @Bean
     @ConditionalOnMissingBean
@@ -43,13 +48,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SessionRepository<MapSession> sessionRepository() {
-        return new MapSessionRepository(new ConcurrentHashMap<>());
+    public HttpSessionIdResolver sessionIdResolver() {
+        return new HeaderHttpSessionIdResolver(tokenHeader);
     }
 
-    @Bean
-    public HttpSessionIdResolver sessionIdResolver() {
-        return new HeaderHttpSessionIdResolver("X-Token");
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 不需要鉴权的路径
+        web.ignoring().antMatchers(defaultIgnore).antMatchers(securityIgnore);
+        super.configure(web);
     }
 
     @Override
@@ -66,14 +73,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             resp.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
             resp.getWriter().write("{\"code\": 1, \"message\": \"" + auth.getMessage() + "\"}");
         });
-        // 不需要鉴权的路径
-        http.authorizeRequests().antMatchers("/doc.html", "/v2/**", "/webjars/**", "/swagger-resources/**", "/error", "/captchaImage").permitAll()
-                .anyRequest().authenticated();
         http.logout().logoutUrl("/logout").logoutSuccessHandler((req, resp, auth) -> {
             resp.setContentType(MediaType.APPLICATION_JSON_VALUE);
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().println("{\"code\":0}");
         });
+        http.authorizeRequests().anyRequest().authenticated();
         http.csrf().disable();
         http.addFilterBefore(userLoginFilter, UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
