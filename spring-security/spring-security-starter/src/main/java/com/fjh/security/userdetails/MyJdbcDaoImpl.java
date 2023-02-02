@@ -1,4 +1,4 @@
-package com.fjh.security.service;
+package com.fjh.security.userdetails;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;

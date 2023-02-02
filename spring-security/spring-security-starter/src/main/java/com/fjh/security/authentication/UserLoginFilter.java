@@ -1,22 +1,16 @@
-package com.fjh.security.config;
+package com.fjh.security.authentication;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.google.code.kaptcha.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author fanjh37
@@ -30,16 +24,15 @@ public class UserLoginFilter extends AbstractAuthenticationProcessingFilter {
     private static final String PASSWORD_PARAMETER = "password";
 
 
-
     private static final String CODE_PARAMETER = "code";
 
-    protected UserLoginFilter(AuthenticationManager authenticationManager) {
+    public UserLoginFilter(AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher("/login", HttpMethod.POST.name(), true));
         setAuthenticationManager(authenticationManager);
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException{
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         if (!HttpMethod.POST.matches(request.getMethod())) {
             throw new AuthenticationServiceException("Method not supported");
         }

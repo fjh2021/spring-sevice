@@ -1,7 +1,8 @@
 package com.fjh.security.config;
 
 
-import com.fjh.security.service.MyJdbcDaoImpl;
+import com.fjh.security.authentication.UserLoginFilter;
+import com.fjh.security.userdetails.MyJdbcDaoImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author fanjh37
@@ -26,8 +27,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-@EnableRedisHttpSession
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -70,12 +70,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
         // 登录失败
         userLoginFilter.setAuthenticationFailureHandler((req, resp, auth) -> {
-            resp.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+            resp.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
             resp.getWriter().write("{\"code\": 1, \"message\": \"" + auth.getMessage() + "\"}");
         });
         http.logout().logoutUrl("/logout").logoutSuccessHandler((req, resp, auth) -> {
             resp.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            resp.setCharacterEncoding("UTF-8");
+            resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
             resp.getWriter().println("{\"code\":0}");
         });
         http.authorizeRequests().anyRequest().authenticated();

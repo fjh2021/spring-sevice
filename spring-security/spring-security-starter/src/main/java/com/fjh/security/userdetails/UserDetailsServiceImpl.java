@@ -1,12 +1,13 @@
-package com.fjh.security.service;
+package com.fjh.security.userdetails;
 
 /**
  * @author fanjh37
  * @since 2023/1/31 19:36
  */
 
-import com.fjh.security.entity.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,9 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //        if (user == null) {
 //            throw new UsernameNotFoundException(String.format("用户:%s，不存在", name));
 //        }
-       String  s= "{bcrypt}"+new BCryptPasswordEncoder().encode("123");
-       log.info("password:{}",s);
-        User user = new User("fjh",s);
-        return new CustomUserDetails(user);
+        String password = "{bcrypt}" + new BCryptPasswordEncoder().encode("123");
+        log.info("password:{}", password);
+        return new User(name, password, true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
     }
 }
