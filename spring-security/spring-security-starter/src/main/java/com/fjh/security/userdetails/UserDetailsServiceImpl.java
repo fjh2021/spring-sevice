@@ -6,6 +6,7 @@ package com.fjh.security.userdetails;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,24 +15,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-@Slf4j
+import java.util.List;
+
+/**
+ *
+ * 样例，参考
+ */
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-//    @Resource
-//    private UserMapper userMapper;
-
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-//        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
-//                .eq(User::getName, name)
-//        );
-//        if (user == null) {
-//            throw new UsernameNotFoundException(String.format("用户:%s，不存在", name));
-//        }
+
+        //1、通过用户查询用户信息
         String password = "{bcrypt}" + new BCryptPasswordEncoder().encode("123");
-        log.info("password:{}", password);
-        return new User(name, password, true, true, true, true, AuthorityUtils.NO_AUTHORITIES);
+        //找不到抛异常
+        //throw new UsernameNotFoundException("", new Object[]{username}, "Username {0} not found"));
+
+        //2、查询权限
+        String[] authorityList = {"getCurrentUser", "getById"};
+        List<GrantedAuthority> grantedAuthorityList = AuthorityUtils.createAuthorityList(authorityList);
+
+        return new User(name, password, true, true, true, true, grantedAuthorityList);
     }
+
 }

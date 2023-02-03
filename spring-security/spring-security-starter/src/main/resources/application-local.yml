@@ -11,6 +11,8 @@ spring:
     port: 6379
   session:
     store-type: REDIS
+    redis:
+      flush-mode: on_save
 knife4j:
   enable: true
 
