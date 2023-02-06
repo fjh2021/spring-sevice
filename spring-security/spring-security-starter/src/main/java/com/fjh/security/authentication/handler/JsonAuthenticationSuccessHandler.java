@@ -1,10 +1,10 @@
 package com.fjh.security.authentication.handler;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,22 +13,21 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 登录成功 返回值
+ * 登录成功处理
  *
  * @author fanjh37
- * @since 2023/2/3 11:20
+ * @since 2023/2/6 19:09
  */
 public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    /**
-     * 登录成功
-     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        JSONObject jsonObject = new JSONObject();
+        String token = httpServletRequest.getSession().getId();
+        jsonObject.put("code", 0);
+        jsonObject.put("msg", "登录成功");
+        jsonObject.put("token", token);
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        String token = httpServletRequest.getSession().getId();
-        httpServletResponse.getWriter().write("{\"code\": 0, \"token\": \"" + token + "\"}");
+        httpServletResponse.getWriter().write(new ObjectMapper().writeValueAsString(jsonObject));
     }
-
-
 }

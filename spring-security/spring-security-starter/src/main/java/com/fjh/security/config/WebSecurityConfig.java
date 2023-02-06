@@ -2,10 +2,7 @@ package com.fjh.security.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fjh.security.authentication.handler.JsonAccessDeniedHandler;
-import com.fjh.security.authentication.handler.JsonAuthenticationEntryPoint;
-import com.fjh.security.authentication.handler.JsonAuthenticationFailureHandler;
-import com.fjh.security.authentication.handler.JsonAuthenticationSuccessHandler;
+import com.fjh.security.authentication.filter.SecurityCaptchaFilter;
 import com.fjh.security.userdetails.MyJdbcDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,6 +24,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
@@ -39,6 +39,17 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityCaptchaFilter securityCaptchaFilter;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Value("${spring.session.headerName:X-Auth-Token}")
     private String tokenHeader;
@@ -89,6 +100,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * 开启是否提示用户名不存在
+     *
+     * @param userDetailsService
+     * @return
+     */
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
+        return daoAuthenticationProvider;
+    }
+
+
+    /**
      * 1、配置登录和拦截
      * 2、新增过滤器
      *
@@ -97,7 +123,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         //登录成功
         http.formLogin().successHandler(authenticationSuccessHandler);
         //登录失败
@@ -106,57 +131,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         //没有接口权限 @preAuth
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+
+        http.addFilterBefore(securityCaptchaFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests().anyRequest().authenticated();
         http.csrf().disable();
         http.headers().cacheControl();
     }
 
-    /**
-     * 登录成功响应，可覆盖
-     */
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    /**
-     * 登录失败响应，可覆盖
-     */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
-
-    /**
-     * 没有登录权限，可覆盖
-     */
-    @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
-
-    /**
-     * 没有接口权限，可覆盖
-     */
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new JsonAuthenticationSuccessHandler();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new JsonAuthenticationFailureHandler();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new JsonAccessDeniedHandler();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new JsonAuthenticationEntryPoint();
-    }
 
 }

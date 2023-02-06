@@ -1,6 +1,5 @@
 package com.fjh.security.userdetails;
 
-import com.fjh.security.authentication.exception.UsernameNotFindException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
@@ -24,7 +23,6 @@ import java.util.List;
 public class MyJdbcDaoImpl extends JdbcDaoSupport implements UserDetailsService, MessageSourceAware {
     protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
-    private boolean usernameBasedPrimaryKey = true;
 
     @Value("${spring.security.usernameQuery:select username,password,enabled from users where username = ?}")
     private String usersByUsernameQuery;
@@ -38,7 +36,7 @@ public class MyJdbcDaoImpl extends JdbcDaoSupport implements UserDetailsService,
         List<UserDetails> users = this.loadUsersByUsername(username);
         if (users.size() == 0) {
             this.logger.debug("Query returned no results for user '" + username + "'");
-            throw new UsernameNotFindException(this.messages.getMessage("JdbcDaoImpl.notFound", new Object[]{username}, "Username {0} not found"));
+            throw new UsernameNotFoundException(this.messages.getMessage("JdbcDaoImpl.notFound", new Object[]{username}, "Username {0} not found"));
         }
         UserDetails user = users.get(0);
         return this.createUserDetails(user, getAuthorityByUsername(username));
