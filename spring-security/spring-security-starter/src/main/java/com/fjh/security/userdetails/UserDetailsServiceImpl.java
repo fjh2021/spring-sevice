@@ -5,7 +5,6 @@ package com.fjh.security.userdetails;
  * @since 2023/1/31 19:36
  */
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -13,12 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- *
  * 样例，参考
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -31,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //找不到抛异常
         //throw new UsernameNotFoundException("", new Object[]{username}, "Username {0} not found"));
 
-        //2、查询权限
+        //2、查询权限,查数据库
         String[] authorityList = {"getCurrentUser", "getById"};
         List<GrantedAuthority> grantedAuthorityList = AuthorityUtils.createAuthorityList(authorityList);
 

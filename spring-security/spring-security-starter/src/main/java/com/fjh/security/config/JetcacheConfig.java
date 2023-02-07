@@ -25,16 +25,32 @@ public class JetcacheConfig {
     @Autowired
     private CacheManager cacheManager;
 
+
     @Bean
-    public Cache<String, String> kaptchaCache(SessionProperties sessionProperties) {
+    public Cache<String, Integer> LockUserCache(SessionProperties sessionProperties) {
 
         CacheType cacheType = CacheType.LOCAL;
         if (sessionProperties.getStoreType() == StoreType.REDIS) {
             cacheType = CacheType.REMOTE;
         }
         QuickConfig qc = QuickConfig.newBuilder("captcha:verification").cacheType(cacheType).expire(Duration.ofSeconds(kaptchaExpiredTime)).build();
-        Cache<String, String> kaptchaCache = cacheManager.getOrCreateCache(qc);
-        return kaptchaCache;
+        return cacheManager.getOrCreateCache(qc);
+    }
+
+    /**
+     * 验证码缓存
+     *
+     * @author fanjh37
+     * @since 2023/2/6 22:43
+     */
+    @Bean
+    public Cache<String, String> kaptchaCache(SessionProperties sessionProperties) {
+        CacheType cacheType = CacheType.LOCAL;
+        if (sessionProperties.getStoreType() == StoreType.REDIS) {
+            cacheType = CacheType.REMOTE;
+        }
+        QuickConfig qc = QuickConfig.newBuilder("captcha:verification").cacheType(cacheType).expire(Duration.ofSeconds(kaptchaExpiredTime)).build();
+        return cacheManager.getOrCreateCache(qc);
     }
 
     public Long getKaptchaExpiredTime() {

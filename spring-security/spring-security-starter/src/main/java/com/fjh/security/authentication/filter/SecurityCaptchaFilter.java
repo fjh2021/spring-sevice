@@ -1,12 +1,11 @@
 package com.fjh.security.authentication.filter;
 
-import com.alicp.jetcache.Cache;
 import com.fjh.security.authentication.Exception.KaptchaNotFoundException;
 import com.fjh.security.kaptcha.KaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -14,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author fanjh37
@@ -26,6 +24,10 @@ public class SecurityCaptchaFilter extends OncePerRequestFilter {
     private static String defaultFilterProcessUrl = "/login";
 
     private static String method = "POST";
+
+
+    @Autowired
+    private AuthenticationEventPublisher authenticationEventPublisher;
 
     @Autowired
     private KaptchaService kaptchaService;
@@ -40,6 +42,7 @@ public class SecurityCaptchaFilter extends OncePerRequestFilter {
             String captchaValue = request.getParameter("captchaValue");
             Boolean verify = kaptchaService.verify(captchaKey, captchaValue);
             if (!verify) {
+                authenticationEventPublisher.publishAuthenticationFailure(new KaptchaNotFoundException("验证码错误"), null);
                 authenticationFailureHandler.onAuthenticationFailure(request, response, new KaptchaNotFoundException("验证码错误"));
                 return;
             }

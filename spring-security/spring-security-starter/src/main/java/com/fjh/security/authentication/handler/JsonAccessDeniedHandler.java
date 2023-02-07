@@ -2,6 +2,8 @@ package com.fjh.security.authentication.handler;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fjh.security.authentication.service.AccessDeniedService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * 鉴权失败处理
@@ -19,6 +22,9 @@ import java.nio.charset.StandardCharsets;
  * @since 2023/2/6 19:09
  */
 public class JsonAccessDeniedHandler implements AccessDeniedHandler {
+    @Autowired(required = false)
+    private AccessDeniedService accessDeniedService;
+
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         JSONObject jsonObject = new JSONObject();
@@ -27,5 +33,8 @@ public class JsonAccessDeniedHandler implements AccessDeniedHandler {
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         httpServletResponse.getWriter().write(new ObjectMapper().writeValueAsString(jsonObject));
+        if (Objects.nonNull(accessDeniedService)) {
+            accessDeniedService.handle(httpServletRequest, httpServletResponse, e);
+        }
     }
 }

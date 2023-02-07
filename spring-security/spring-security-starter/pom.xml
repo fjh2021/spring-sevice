@@ -80,6 +80,11 @@
             <artifactId>jedis</artifactId>
             <version>4.3.1</version>
         </dependency>
+        <dependency>
+            <groupId>es.moki.ratelimitj</groupId>
+            <artifactId>ratelimitj-inmemory</artifactId>
+            <version>0.4.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>security-spring-boot-starter</finalName>
